@@ -47,7 +47,11 @@ roundContents address data round =
       Revealed responses -> [ playedView address isCzar responses ]
       Hidden _ -> pickedView address pickedWithIndex (Card.slots round.call) data.shownPlayed
   in
-    [ playArea (List.concat [ [ call round.call picked ], pickedOrPlayed, [ handView address data.picked (isCzar || hasPlayed) hand ] ]) ]
+    [ playArea
+      [ div [ class "round-area" ] (List.concat [ [ call round.call picked ], pickedOrPlayed ])
+      , handView address data.picked (isCzar || hasPlayed) hand
+      ]
+    ]
 
 
 winnerContentsAndHeader : Signal.Address Action -> Round -> List Player -> (List Html, List Html)

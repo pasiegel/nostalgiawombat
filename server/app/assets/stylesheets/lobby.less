@@ -21,15 +21,22 @@
 
 .play-area {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
+  align-items: center;
   position: relative;
 
-  .others-picked {
-    .card {
-      position: absolute;
-      z-index: -10;
-      transition: transform 3s, left 3s, right 3s, top 3s ease-out
+  .round-area {
+    display: flex;
+    flex-direction: row;
+
+    .others-picked {
+      .card {
+        position: absolute;
+        z-index: -10;
+        transform-origin: 50% 50%;
+        transition: transform 1s
+      }
     }
   }
 }

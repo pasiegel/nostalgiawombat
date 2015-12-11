@@ -1,11 +1,11 @@
 module MassiveDecks.Playing where
 
-import Time
 import Task
 import Effects
 import Html exposing (Html, Attribute)
-import Html.Attributes exposing (style)
 import Random exposing (Generator, Seed, list, bool, int)
+
+import VirtualDom.Animate exposing (animatedStyle)
 
 import MassiveDecks.Models.Player exposing (Secret)
 import MassiveDecks.Models.Card as Card
@@ -14,7 +14,6 @@ import MassiveDecks.Models.State exposing (State(..), Model, ConfigData, Playing
 import MassiveDecks.Actions.Action exposing (Action(..), APICall(..))
 import MassiveDecks.UI.Playing as UI
 import MassiveDecks.API as API
-import MassiveDecks.Util as Util
 
 
 update : Action -> Global -> PlayingData -> (Model, Effects.Effects Action)
@@ -40,29 +39,29 @@ update action global data = case action of
 
   Play (Result lobbyAndHand) ->
     let
-      (data, effect, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
+      (data, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
     in
       (model { global | seed = seed }
         { data | hand = lobbyAndHand.hand
                , picked = []
-               }, effect)
+               }, Effects.none)
 
   Notification lobby ->
     case lobby.round of
       Just _ ->
         let
-          (data, effect, seed) = (updateLobby data lobby global.seed)
+          (data, seed) = (updateLobby data lobby global.seed)
         in
-          (model { global | seed = seed } data, effect)
+          (model { global | seed = seed } data, Effects.none)
       Nothing -> (configModel global (ConfigData lobby data.secret ""), Effects.none)
 
   JoinLobby lobbyId secret (Result lobbyAndHand) ->
     case lobbyAndHand.lobby.round of
       Just _ ->
         let
-          (data, effect, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
+          (data, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
         in
-          (model { global | seed = seed } data, effect)
+          (model { global | seed = seed } data, Effects.none)
       Nothing -> (configModel global (ConfigData lobbyAndHand.lobby data.secret ""), Effects.none)
 
   Choose winner Request ->
@@ -70,21 +69,15 @@ update action global data = case action of
 
   Choose winner (Result lobbyAndHand) ->
     let
-      (data, effect, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
+      (data, seed) = (updateLobby data lobbyAndHand.lobby global.seed)
     in
       (model { global | seed = seed }
         { data | hand = lobbyAndHand.hand
                , picked = []
-               }, effect)
+               }, Effects.none)
 
   NextRound ->
     (model global { data | lastFinishedRound = Nothing }, Effects.none)
-
-  AnimatePlayedCards toAnimate ->
-    let
-      (shownPlayed, seed) = updatePositioning toAnimate data.shownPlayed global.seed
-    in
-      (model { global | seed = seed } { data | shownPlayed = (Debug.log "shownPlayed" shownPlayed) }, Effects.none)
 
   other ->
     (model global data,
@@ -93,7 +86,7 @@ update action global data = case action of
       |> Effects.task)
 
 
-updateLobby : PlayingData -> Lobby -> Seed -> (PlayingData, Effects.Effects Action, Seed)
+updateLobby : PlayingData -> Lobby -> Seed -> (PlayingData, Seed)
 updateLobby data lobby seed =
   let
     lastFinishedRound = if (Maybe.map .call data.lobby.round) == (Maybe.map .call lobby.round) then
@@ -102,53 +95,43 @@ updateLobby data lobby seed =
       data.lobby.round
     oldShownPlayed = data.shownPlayed
     oldShownPlayedLength = (List.length oldShownPlayed)
-    (shownPlayed, effects, resultSeed) = case Maybe.map .responses data.lobby.round of
+    (shownPlayed, resultSeed) = case Maybe.map .responses data.lobby.round of
       Just (Card.Hidden amount) ->
         let
           (newShownPlayed, newSeed) =
-            Random.generate (list (amount - oldShownPlayedLength) initialRandomPositioning) seed
+            Random.generate (list (amount - oldShownPlayedLength) animatedPositioning) seed
         in
-          (List.concat [ oldShownPlayed, newShownPlayed ]
-          ,(Task.sleep (Time.millisecond * 250)
-           `Task.andThen`
-           \_ -> (Task.succeed (AnimatePlayedCards (Util.range oldShownPlayedLength (List.length newShownPlayed)))))
-           |> Effects.task
-          ,newSeed)
-      _ -> ([], Effects.none, seed)
+          (List.concat [ oldShownPlayed, newShownPlayed ], newSeed)
+      _ -> ([], seed)
   in
     ({ data | lobby = lobby
             , lastFinishedRound = lastFinishedRound
             , shownPlayed = shownPlayed
-            }, effects, resultSeed)
+            }, resultSeed)
 
 
-updatePositioning : List Int -> List Attribute -> Seed -> (List Attribute, Seed)
-updatePositioning toAnimate existing seed =
-  let
-    generator = (\index val -> if (List.member index toAnimate) then randomPositioning else Random.map (\_ -> val) bool)
-    generators = List.indexedMap generator (Debug.log "existing" existing)
-  in
-    Random.generate (Util.inOrder generators) seed
+animatedPositioning : Generator Attribute
+animatedPositioning =
+  (int -75 75) `Random.andThen` (\angle -> Random.map2 animatedStyle (initialPositioning angle) (finalPositioning angle))
 
 
-randomPositioning : Generator Attribute
-randomPositioning = Random.map4 positioning (int -75 75) (int 0 50) bool (int -5 5)
+finalPositioning : Int -> Generator (List (String, String))
+finalPositioning angle =
+  Random.map3 (\hPos left yPos -> positioning angle hPos left yPos) (int 0 40) bool (int -5 1)
 
 
-initialRandomPositioning : Generator Attribute
-initialRandomPositioning = Random.map3 (\r h l -> positioning r h l -100) (int -75 75) (int 0 50) bool
+initialPositioning : Int -> Generator (List (String, String))
+initialPositioning angle = Random.map2 (\hPos left -> positioning angle hPos left -150) (int 0 50) bool
 
 
-positioning : Int -> Int -> Bool -> Int -> Attribute
+positioning : Int -> Int -> Bool -> Int -> List (String, String)
 positioning rotation horizontalPos left verticalPos =
   let
     horizontalDirection = if left then "left" else "right"
   in
-    style
-      [ ("transform", "rotate(" ++ (toString rotation) ++ "deg)")
-      , (horizontalDirection, (toString horizontalPos) ++ "%")
-      , ("top", (toString verticalPos) ++ "%")
-      ]
+    [ ("transform", "rotate(" ++ (toString rotation) ++ "deg) translateY(" ++ (toString verticalPos) ++ "%" ++ ")")
+    , (horizontalDirection, (toString horizontalPos) ++ "%")
+    ]
 
 
 model : Global -> PlayingData -> Model

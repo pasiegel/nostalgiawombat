@@ -27,4 +27,3 @@ type Action
   | RemoveErrorPanel Int
   | NextRound
   | SetInitialState InitialState
-  | AnimatePlayedCards (List Int)
