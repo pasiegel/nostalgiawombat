@@ -317,7 +317,7 @@ update message model =
 
 title : String
 title =
-    "Massive Decks"
+    "Nostalgia Wombat!"
 
 
 newPlayerErrorHandler : API.NewPlayerError -> Message
