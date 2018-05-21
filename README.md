@@ -1,6 +1,6 @@
-# Massive Decks [![Build Status](https://travis-ci.org/Lattyware/massivedecks.svg?branch=master)](https://travis-ci.org/Lattyware/massivedecks)
+# Nostalgia Wombat
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lattyware/massivedecks)
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/pasiegel/nostalgiawombat)
 
 Nostalgia Wombat is a web game based on the excellent [Cards against Humanity][cah] - a party game where you play white cards to try and produce the most amusing outcome when combined with the given black card. The game can be played on phone or computer and uses [Cardcast decks][cardcast]. It is a reworking of "Massive Decks" by Lattyware modified to meet my needs. All credit goes to the original writer.
 
