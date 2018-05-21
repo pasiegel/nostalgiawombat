@@ -8,7 +8,8 @@ Nostalgia Wombat is a web game based on the excellent [Cards against Humanity][c
 
 If you have any problems with the game, please [raise an issue][issue]. If you would like to help develop the game, check [the wiki][wiki] for how to get set up and help.
 
-Massive Decks is also inspired by:
+Nostalgia Wombat is inspired by:
+* [Massive Decks](https://github.com/Lattyware/massivedecks) A Cards Against Humanity clone.
 * [CardCast](https://www.cardcastgame.com/) - a great app that allows you to play on a ChromeCast.
 * [Pretend You're Xyzzy](http://pretendyoure.xyz/zy/) - a web game where you can jump in with people you don't know.
 
@@ -22,7 +23,7 @@ We also use:
 * [Font Awesome](https://fortawesome.github.io/Font-Awesome/)
 * [MUI](https://www.muicss.com/)
 
-Massive Decks is under [the AGPLv3 license][license]. The game concept 'Cards against Humanity' is used under a
+Nostalgia Wombat is under [the AGPLv3 license][license]. The game concept 'Cards against Humanity' is used under a
 [Creative Commons BY-NC-SA 2.0 license][cah-license] granted by [Cards against Humanity][cah].
 
 [massivedecks]: https://massivedecks.herokuapp.com/
