@@ -2,12 +2,7 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/Lattyware/massivedecks)
 
-Massive Decks is a web game based on the excellent [Cards against Humanity][cah] - a party game where you play white cards to try and produce the most amusing outcome when combined with the given black card. The game can be played on phone or computer and uses [Cardcast decks][cardcast].
-
-Play the game at:
-**[https://massivedecks.herokuapp.com/][massivedecks]**
-
-(This is hosted on a service that will automatically sleep if it's unused for a while - it may take a little time to load in those cases, but should be fine after the initial load.)
+Nostalgia Wombat is a web game based on the excellent [Cards against Humanity][cah] - a party game where you play white cards to try and produce the most amusing outcome when combined with the given black card. The game can be played on phone or computer and uses [Cardcast decks][cardcast]. It is a reworking of "Massive Decks" by Lattyware modified to meet my needs. All credit goes to the original writer.
 
 [![A screenshot of the game.](https://cloud.githubusercontent.com/assets/1239492/16138236/8299ee32-3433-11e6-8ca2-36993bb83d58.png)][massivedecks]
 
@@ -20,6 +15,7 @@ Massive Decks is also inspired by:
 This is an open source game developed in [Elm][elm] for the client and [Scala][scala] for the server.
 
 We also use:
+* [Massive Decks](https://github.com/Lattyware/massivedecks) A Cards Against Humanity clone.
 * [CardCast](https://www.cardcastgame.com/)'s APIs for getting decks of cards (you can go there to make your own!).
 * [The Play framework](https://www.playframework.com/)
 * [Less](http://lesscss.org/)
