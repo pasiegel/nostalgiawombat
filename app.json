@@ -1,12 +1,12 @@
 {
-  "name": "Massive Decks",
+  "name": "Nostalgia Wombat",
   "description": "A party game where you play white cards to try and produce the most amusing outcome when combined with the given black card.",
   "keywrods": [
     "game",
     "party",
     "comedy"
   ],
-  "repository": "https://github.com/Lattyware/massivedecks",
+  "repository": "https://github.com/pasiegel/nostalgiawombat",
   "env": {
     "MD_HOST": {
       "description": "The hostname Massive Decks will be accessible at.",
