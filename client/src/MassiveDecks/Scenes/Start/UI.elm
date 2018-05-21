@@ -61,7 +61,7 @@ view model =
     in
         div [ id "start-screen" ]
             [ div [ id "start-screen-content", class "mui-panel" ]
-                ([ h1 [ class "mui--divider-bottom" ] [ text "Massive Decks" ]
+                ([ h1 [ class "mui--divider-bottom" ] [ text "Nostalgia Wombat" ]
                  ]
                     ++ (existingGames model.storage)
                     ++ [ Input.view model.nameInput
@@ -76,15 +76,15 @@ view model =
                             [ Icon.icon "question-circle", text " About" ]
                        , div [ id "forkongithub" ]
                             [ div []
-                                [ a [ href "https://github.com/lattyware/massivedecks", target "_blank", rel "noopener" ]
+                                [ a [ href "https://github.com/pasiegel/nostalgiawombat", target "_blank", rel "noopener" ]
                                     [ Icon.icon "github", text " Fork me on GitHub" ]
                                 ]
                             ]
                        ]
                 )
             , footer []
-                [ a [ href "https://github.com/Lattyware/massivedecks" ]
-                    [ img [ src "images/icon.svg", alt "The Massive Decks logo.", title "Massive Decks" ] [] ]
+                [ a [ href "https://github.com/pasiegel/nostalgiawombat" ]
+                    [ img [ src "images/icon.svg", alt "The Massive Decks logo.", title "Nostalgia Wombat" ] [] ]
                 , p [] versionInfo
                 ]
             ]
