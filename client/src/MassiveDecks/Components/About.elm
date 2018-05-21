@@ -24,10 +24,12 @@ title =
 contents : String -> List (Html a)
 contents version =
     ([ p []
-        [ text "Massive Decks is a web game based on the excellent "
+        [ text "Nostalgia Wombat is a web game based on the excellent "
         , a [ href "https://cardsagainsthumanity.com/", target "_blank", rel "noopener" ] [ text "Cards against Humanity" ]
         , text " - a party game where you play white cards to try and produce the most amusing outcome when "
-        , text "combined with the given black card."
+        , text "combined with the given black card. This game is a reworkiong of "
+        , a [ href "https://github.com/Lattyware/massivedecks", target "_blank", rel "noopener" ] [ text "Massive Decks by Lattyware" ]
+        , text " modified to meet our needs , all credit goes to their team. "
         ]
      , p []
         [ text "Massive Decks is also inspired by: "
