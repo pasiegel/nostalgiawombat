@@ -225,9 +225,9 @@ emptyDeckListInfo display =
                         [ class "link"
                         , attribute "tabindex" "0"
                         , attribute "role" "button"
-                        , onClick (ConfigureDecks (Request "CAHBS"))
+                        , onClick (ConfigureDecks (Request "84QEV"))
                         ]
-                        [ text "clicking here to add the Cards Against Humanity base set" ]
+                        [ text "clicking here to add the Dating Ourselves Nostalgia Wombat base card set" ]
                     , text "."
                     ]
                 ]
