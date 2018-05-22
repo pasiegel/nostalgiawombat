@@ -23,7 +23,7 @@ class Pages @Inject() (cached: Cached, getConfig: Config.Factory) extends Contro
   def manifest() = cached("manifest")(Action { request =>
     val config = getConfig(request)
     val json = Json.obj(
-      "name" -> "Massive Decks",
+      "name" -> "Nostalgia Wombat",
       "description" -> "An online party game inspired by Cards Against Humanity.",
       "icons" -> Json.arr(
         Json.obj(
