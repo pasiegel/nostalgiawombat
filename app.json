@@ -9,15 +9,15 @@
   "repository": "https://github.com/pasiegel/nostalgiawombat",
   "env": {
     "MD_HOST": {
-      "description": "The hostname Massive Decks will be accessible at.",
+      "description": "The hostname Nostalgia Wombat will be accessible at.",
       "value": "yourappname.herokuapp.com"
     },
     "MD_PATH": {
-      "description": "The path Massive Decks will be accessible at.",
+      "description": "The path Nostalgia Wombat will be accessible at.",
       "value": "/"
     },
     "MD_PROTOCOL": {
-      "description": "The protocol Massive Decks will be accessible on.",
+      "description": "The protocol Nostalgia Wombat will be accessible on.",
       "value": "https"
     },
     "APPLICATION_SECRET": {
